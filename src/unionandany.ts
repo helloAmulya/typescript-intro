@@ -1,6 +1,7 @@
 let subs: number | string = '1M'
 let apistatus: 'pending' | 'success' | 'error' = 'pending'
 
+// = pending -> initial state (default)
 apistatus = 'error'
 
 const orders = ['12', '20', '28', '32']
