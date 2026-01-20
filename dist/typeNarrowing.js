@@ -36,11 +36,17 @@ function serve(chai) {
 }
 // to check chai type
 console.log(`this is ${serve(new KulhadChai())}`);
+// isChaiOrder here is the type gaurd
 function isChaiOrder(obj) {
     return (typeof obj === 'object' &&
         obj !== null &&
         typeof obj.type === "string" &&
         typeof obj.sugar === "number");
+    // or , this is more cleaner and production grade
+    // return (
+    //     typeof obj?.type === "string" && 
+    //     typeof obj?.sugar === "number"
+    // );
 }
 function servingChai(item) {
     if (isChaiOrder(item)) {
@@ -48,21 +54,23 @@ function servingChai(item) {
     }
     return `Serving ${item}`;
 }
-console.log(`serving - ${servingChai({ type: 'masala', sugar: 2 })}`);
+// execution
+console.log(`Order - ${servingChai({ type: 'masala', sugar: 2 })}`);
 function makingChai(order) {
     switch (order.type) {
         case "masala":
-            console.log("brewing masala...");
+            console.log(`brewing masala with ${order.spicelevel}`);
             break;
         case "ginger":
-            console.log("brewing ginger...");
+            console.log(`brewing ginger with ${order.amount}`);
             break;
         case "elaichi":
-            console.log("brewing elaichi...");
+            console.log(`brewing elaichi with ${order.aroma}`);
             break;
         default:
             const _exhaustiveCheck = order;
             return _exhaustiveCheck;
+        //  so if i add a new chai type and forgot to add that in switch case, then red line will appear below '_exhaustiveCheck'
     }
 }
 makingChai({ type: "masala", spicelevel: 2 });
