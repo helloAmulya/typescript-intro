@@ -18,7 +18,7 @@ function orderChai(size) {
     if (size === "medium" || size === "large") {
         return `make extra chai`;
     }
-    return `chair order ${size}`;
+    return `chai order ${size}`;
 }
 class KulhadChai {
     serve() { return `Serving kulhad chai`; }
@@ -34,6 +34,8 @@ function serve(chai) {
     // if not kulhad it is cuttingchai
     return chai.serve();
 }
+// to check chai type
+console.log(`this is ${serve(new KulhadChai())}`);
 function isChaiOrder(obj) {
     return (typeof obj === 'object' &&
         obj !== null &&
@@ -46,6 +48,7 @@ function servingChai(item) {
     }
     return `Serving ${item}`;
 }
+console.log(`serving - ${servingChai({ type: 'masala', sugar: 2 })}`);
 function makingChai(order) {
     switch (order.type) {
         case "masala":

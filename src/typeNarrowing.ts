@@ -1,5 +1,6 @@
 
 // type guarding
+
 function getChai(kind: string | number) {
     if (typeof kind === "string") {
         return `Making chai ${kind} ...`
@@ -21,7 +22,7 @@ function orderChai(size: "small" | "medium" | "large" | number) {
     if (size === "medium" || size === "large") {
         return `make extra chai`
     }
-    return `chair order ${size}`
+    return `chai order ${size}`
 }
 
 class KulhadChai {
@@ -42,12 +43,16 @@ function serve(chai: KulhadChai | CuttingChai) {
     return chai.serve();
 }
 
+// to check chai type
+console.log(`this is ${serve(new KulhadChai())}`)
 
+
+// Type Narrowing
 type chaiOrder = {
     type: string,
     sugar: number
 }
-
+// isChaiOrder here is the type gaurd
 function isChaiOrder(obj: any): obj is chaiOrder {
     return (
         typeof obj === 'object' &&
@@ -55,6 +60,11 @@ function isChaiOrder(obj: any): obj is chaiOrder {
         typeof obj.type === "string" &&
         typeof obj.sugar === "number"
     )
+    // or , this is more cleaner and production grade
+    // return (
+    //     typeof obj?.type === "string" && 
+    //     typeof obj?.sugar === "number"
+    // );
 }
 
 function servingChai(item: chaiOrder | string) {
@@ -63,28 +73,34 @@ function servingChai(item: chaiOrder | string) {
     }
     return `Serving ${item}`
 }
- 
 
+// execution
+console.log(`Order - ${servingChai({ type: 'masala', sugar: 2 })}`)
+
+
+// we defined the separate chai types them called those in a single type names as Chai (union)
 type MasalaChai = { type: "masala"; spicelevel: number };
 type GingerChai = { type: "ginger"; amount: number };
 type ElaichiChai = { type: "elaichi"; aroma: number };
+// type lemonChai = { type: "lemon"; flavour: number };
 
-type Chai = MasalaChai | GingerChai | ElaichiChai;
+type Chai = MasalaChai | GingerChai | ElaichiChai
 
 function makingChai(order: Chai) {
     switch (order.type) {
         case "masala":
-            console.log("brewing masala...");
+            console.log(`brewing masala with ${order.spicelevel}`);
             break;
         case "ginger":
-            console.log("brewing ginger...");
+            console.log(`brewing ginger with ${order.amount}`);
             break;
         case "elaichi":
-            console.log("brewing elaichi...");
+            console.log(`brewing elaichi with ${order.aroma}`);
             break;
         default:
             const _exhaustiveCheck: never = order;
             return _exhaustiveCheck;
+        //  so if i add a new chai type and forgot to add that in switch case, then red line will appear below '_exhaustiveCheck'
     }
 }
 
