@@ -1,1 +1,1 @@
-{"root":["./src/index.ts","./src/moretypes.ts","./src/typenarrowing.ts","./src/unionandany.ts"],"version":"5.8.3"}
+{"root":["./src/index.ts","./src/interfacets.ts","./src/moretypes.ts","./src/typenarrowing.ts","./src/unionandany.ts"],"version":"5.8.3"}
